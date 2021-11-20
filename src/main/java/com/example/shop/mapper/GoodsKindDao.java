@@ -2,7 +2,6 @@ package com.example.shop.mapper;
 
 import com.example.shop.pojo.GoodsKind;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 @Mapper
 public interface GoodsKindDao {

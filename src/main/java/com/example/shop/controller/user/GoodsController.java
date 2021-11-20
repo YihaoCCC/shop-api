@@ -1,12 +1,9 @@
 package com.example.shop.controller.user;
 
 import com.example.shop.pojo.Goods;
-import com.example.shop.pojo.User;
 import com.example.shop.service.GoodsSer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +16,10 @@ import java.util.List;
 public class GoodsController {
     @Autowired
     private GoodsSer goodsSer;
-/**根据商品名字查找商品
- * */
+
+    /**
+     * 根据商品名字查找商品
+     */
     @GetMapping("/goods/queryByGoodsName/{goodsName}")
     public List<Goods> queryByGoodsName(@PathVariable(value = "goodsName") String goodsName) {
 
@@ -30,8 +29,14 @@ public class GoodsController {
     /**
      * 获取全部商品
      */
-    @GetMapping("/goods/All")
-    private List<Goods> queryAllGoods() {
-        return goodsSer.queryAllGoods();
+    @GetMapping("/goods/pageNum/{pageNum}")
+    private List<Goods> queryGoodsByPageNum(@PathVariable(value = "pageNum") int pageNum) {
+        int start=(pageNum-1)*10;
+        int end=pageNum*10;
+        return goodsSer.queryGoodsByPageNum(start,end);
+    }
+    @PostMapping("/goods/add/goods")
+    private int insert(@RequestBody Goods goods){
+        return goodsSer.insert(goods);
     }
 }

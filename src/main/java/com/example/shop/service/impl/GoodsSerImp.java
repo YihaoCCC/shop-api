@@ -24,8 +24,8 @@ public class GoodsSerImp implements GoodsSer {
     }
 
     @Override
-    public List<Goods> queryAllGoods() {
-        return goodsDao.queryAllGoods();
+    public List<Goods> queryGoodsByPageNum(int start,int end) {
+        return goodsDao.queryGoodsByPageNum(start,end);
     }
 
     @Override

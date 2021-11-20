@@ -9,7 +9,7 @@ import java.util.List;
 public interface GoodsDao {
     int deleteByPrimaryKey(String goodsId);
 
-    List<Goods> queryAllGoods();
+    List<Goods> queryGoodsByPageNum(int start ,int end);
 
     List<Goods> queryByGoodsName(String goodsName);
 
