@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.CollectionDao">
+  <resultMap id="BaseResultMap" type="com.example.shop.pojo.CollectionKey">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <id column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.shop.pojo.CollectionKey">
+    delete from collection
+    where user_id = #{userId,jdbcType=VARCHAR}
+      and goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.example.shop.pojo.CollectionKey" useGeneratedKeys="true">
+    insert into collection (goods_id)
+    values (#{goodsId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="com.example.shop.pojo.CollectionKey" useGeneratedKeys="true">
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

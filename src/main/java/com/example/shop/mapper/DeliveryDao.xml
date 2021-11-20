@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.DeliveryDao">
+  <resultMap id="BaseResultMap" type="com.example.shop.pojo.Delivery">
+    <id column="delivery_id" jdbcType="INTEGER" property="deliveryId" />
+    <result column="delivery_name" jdbcType="VARCHAR" property="deliveryName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    delivery_id, delivery_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from delivery
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from delivery
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="delivery_id" keyProperty="deliveryId" parameterType="com.example.shop.pojo.Delivery" useGeneratedKeys="true">
+    insert into delivery (delivery_name)
+    values (#{deliveryName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="delivery_id" keyProperty="deliveryId" parameterType="com.example.shop.pojo.Delivery" useGeneratedKeys="true">
+    insert into delivery
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deliveryName != null">
+        delivery_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deliveryName != null">
+        #{deliveryName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.Delivery">
+    update delivery
+    <set>
+      <if test="deliveryName != null">
+        delivery_name = #{deliveryName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.Delivery">
+    update delivery
+    set delivery_name = #{deliveryName,jdbcType=VARCHAR}
+    where delivery_id = #{deliveryId,jdbcType=INTEGER}
+  </update>
+</mapper>

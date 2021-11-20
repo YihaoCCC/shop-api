@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.ReviewDao">
+  <resultMap id="BaseResultMap" type="com.example.shop.pojo.Review">
+    <id column="review_id" jdbcType="VARCHAR" property="reviewId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="review_time" jdbcType="DATE" property="reviewTime" />
+    <result column="review_message" jdbcType="VARCHAR" property="reviewMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    review_id, user_id, goods_id, review_time, review_message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from review
+    where review_id = #{reviewId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from review
+    where review_id = #{reviewId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="review_id" keyProperty="reviewId" parameterType="com.example.shop.pojo.Review" useGeneratedKeys="true">
+    insert into review (user_id, goods_id, review_time, 
+      review_message)
+    values (#{userId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{reviewTime,jdbcType=DATE}, 
+      #{reviewMessage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="review_id" keyProperty="reviewId" parameterType="com.example.shop.pojo.Review" useGeneratedKeys="true">
+    insert into review
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="reviewTime != null">
+        review_time,
+      </if>
+      <if test="reviewMessage != null">
+        review_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewTime != null">
+        #{reviewTime,jdbcType=DATE},
+      </if>
+      <if test="reviewMessage != null">
+        #{reviewMessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.Review">
+    update review
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewTime != null">
+        review_time = #{reviewTime,jdbcType=DATE},
+      </if>
+      <if test="reviewMessage != null">
+        review_message = #{reviewMessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where review_id = #{reviewId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.Review">
+    update review
+    set user_id = #{userId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      review_time = #{reviewTime,jdbcType=DATE},
+      review_message = #{reviewMessage,jdbcType=VARCHAR}
+    where review_id = #{reviewId,jdbcType=VARCHAR}
+  </update>
+</mapper>

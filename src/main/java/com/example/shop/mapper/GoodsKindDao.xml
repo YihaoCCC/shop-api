@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.GoodsKindDao">
+  <resultMap id="BaseResultMap" type="com.example.shop.pojo.GoodsKind">
+    <id column="kind_id" jdbcType="INTEGER" property="kindId" />
+    <result column="kind_name" jdbcType="VARCHAR" property="kindName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    kind_id, kind_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_kind
+    where kind_id = #{kindId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods_kind
+    where kind_id = #{kindId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="kind_id" keyProperty="kindId" parameterType="com.example.shop.pojo.GoodsKind" useGeneratedKeys="true">
+    insert into goods_kind (kind_name)
+    values (#{kindName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="kind_id" keyProperty="kindId" parameterType="com.example.shop.pojo.GoodsKind" useGeneratedKeys="true">
+    insert into goods_kind
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kindName != null">
+        kind_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kindName != null">
+        #{kindName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.GoodsKind">
+    update goods_kind
+    <set>
+      <if test="kindName != null">
+        kind_name = #{kindName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where kind_id = #{kindId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.GoodsKind">
+    update goods_kind
+    set kind_name = #{kindName,jdbcType=VARCHAR}
+    where kind_id = #{kindId,jdbcType=INTEGER}
+  </update>
+</mapper>

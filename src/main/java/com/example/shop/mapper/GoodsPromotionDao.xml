@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.GoodsPromotionDao">
+  <resultMap id="BaseResultMap" type="com.example.shop.pojo.GoodsPromotion">
+    <id column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="promotion_kind" jdbcType="VARCHAR" property="promotionKind" />
+    <result column="pormotion_detail" jdbcType="VARCHAR" property="pormotionDetail" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    goods_id, promotion_kind, pormotion_detail, start_time, end_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_promotion
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goods_promotion
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="goods_id" keyProperty="goodsId" parameterType="com.example.shop.pojo.GoodsPromotion" useGeneratedKeys="true">
+    insert into goods_promotion (promotion_kind, pormotion_detail, start_time, 
+      end_time)
+    values (#{promotionKind,jdbcType=VARCHAR}, #{pormotionDetail,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="goods_id" keyProperty="goodsId" parameterType="com.example.shop.pojo.GoodsPromotion" useGeneratedKeys="true">
+    insert into goods_promotion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="promotionKind != null">
+        promotion_kind,
+      </if>
+      <if test="pormotionDetail != null">
+        pormotion_detail,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="promotionKind != null">
+        #{promotionKind,jdbcType=VARCHAR},
+      </if>
+      <if test="pormotionDetail != null">
+        #{pormotionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.GoodsPromotion">
+    update goods_promotion
+    <set>
+      <if test="promotionKind != null">
+        promotion_kind = #{promotionKind,jdbcType=VARCHAR},
+      </if>
+      <if test="pormotionDetail != null">
+        pormotion_detail = #{pormotionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.GoodsPromotion">
+    update goods_promotion
+    set promotion_kind = #{promotionKind,jdbcType=VARCHAR},
+      pormotion_detail = #{pormotionDetail,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE}
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

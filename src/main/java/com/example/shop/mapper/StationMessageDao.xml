@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.StationMessageDao">
+  <resultMap id="BaseResultMap" type="com.example.shop.pojo.StationMessage">
+    <id column="message_id" jdbcType="VARCHAR" property="messageId" />
+    <result column="message_content" jdbcType="VARCHAR" property="messageContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    message_id, message_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from station_message
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from station_message
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="message_id" keyProperty="messageId" parameterType="com.example.shop.pojo.StationMessage" useGeneratedKeys="true">
+    insert into station_message (message_content)
+    values (#{messageContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="message_id" keyProperty="messageId" parameterType="com.example.shop.pojo.StationMessage" useGeneratedKeys="true">
+    insert into station_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageContent != null">
+        message_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageContent != null">
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.StationMessage">
+    update station_message
+    <set>
+      <if test="messageContent != null">
+        message_content = #{messageContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.StationMessage">
+    update station_message
+    set message_content = #{messageContent,jdbcType=VARCHAR}
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+</mapper>
