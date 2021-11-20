@@ -1,6 +1,7 @@
 package com.example.shop.controller.user;
 
 import com.example.shop.pojo.Goods;
+import com.example.shop.pojo.User;
 import com.example.shop.service.GoodsSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ public class GoodsController {
  * */
     @GetMapping("/goods/queryByGoodsName/{goodsName}")
     public List<Goods> queryByGoodsName(@PathVariable(value = "goodsName") String goodsName) {
+
         return goodsSer.queryByGoodsName(goodsName);
     }
 

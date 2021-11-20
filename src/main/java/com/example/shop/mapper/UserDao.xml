@@ -5,7 +5,7 @@
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="pswd" jdbcType="VARCHAR" property="pswd" />
     <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="points" jdbcType="INTEGER" property="points" />

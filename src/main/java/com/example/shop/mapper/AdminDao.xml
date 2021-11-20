@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.example.shop.pojo.Admin">
     <id column="admin_id" jdbcType="VARCHAR" property="adminId" />
     <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="pswd" jdbcType="VARCHAR" property="pswd" />
   </resultMap>
   <sql id="Base_Column_List">
