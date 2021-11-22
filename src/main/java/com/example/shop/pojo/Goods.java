@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * goods
@@ -34,4 +35,5 @@ public class Goods implements Serializable {
     private Double goodsPrice;
 
     private String photoUrl;
+
 }

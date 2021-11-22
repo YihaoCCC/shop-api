@@ -2,6 +2,7 @@ package com.example.shop.service.impl;
 
 import com.example.shop.mapper.GoodsDao;
 import com.example.shop.pojo.Goods;
+import com.example.shop.pojo.GoodsDetailReview;
 import com.example.shop.service.GoodsSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,10 +45,9 @@ public class GoodsSerImp implements GoodsSer {
     }
 
     @Override
-    public Goods selectByPrimaryKey(String goodsId) {
+    public GoodsDetailReview selectByPrimaryKey(String goodsId) {
         return goodsDao.selectByPrimaryKey(goodsId);
     }
-
     @Override
     public int updateByPrimaryKeySelective(Goods record) {
         return goodsDao.updateByPrimaryKeySelective(record);

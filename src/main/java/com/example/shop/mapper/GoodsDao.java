@@ -1,6 +1,7 @@
 package com.example.shop.mapper;
 
 import com.example.shop.pojo.Goods;
+import com.example.shop.pojo.GoodsDetailReview;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface GoodsDao {
 
     int insertSelective(Goods record);
 
-    Goods selectByPrimaryKey(String goodsId);
+    GoodsDetailReview selectByPrimaryKey(String goodsId);
 
     int updateByPrimaryKeySelective(Goods record);
 

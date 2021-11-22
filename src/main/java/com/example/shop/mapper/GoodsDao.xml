@@ -16,13 +16,51 @@
         goods_id, goods_name, goods_kind_id,goods_is_self,goods_detail,goods_status, goods_invn, goods_price,
     photo_url
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <resultMap id="MultiMap" type="com.example.shop.pojo.GoodsDetailReview">
+        <result column="goods_id" jdbcType="VARCHAR" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_kind_id" jdbcType="INTEGER" property="goodsKindId"/>
+        <result column="goods_is_self" jdbcType="INTEGER" property="goodsIsSelf"/>
+        <result column="goods_detail" jdbcType="VARCHAR" property="goodsDetail"/>
+        <result column="goods_status" jdbcType="VARCHAR" property="goodsStatus"/>
+        <result column="goods_invn" jdbcType="INTEGER" property="goodsInvn"/>
+        <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice"/>
+        <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
+        <collection property="goodsVersions" ofType="com.example.shop.pojo.GoodsVersion"
+                    javaType="ArrayList" select="getVersion" column="goods_id"/>
+        <collection property="reviews" ofType="com.example.shop.pojo.Review"
+                    javaType="ArrayList" select="getReview" column="goods_id"/>
+    </resultMap>
+    <resultMap id="versionMap" type="com.example.shop.pojo.GoodsVersion">
+        <result column="goods_version_id" property="goodsVersionId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_version_detail" property="goodsVersionDetail"/>
+        <result column="goods_price" property="goodsPrice"/>
+    </resultMap>
+    <select id="getVersion" resultMap="versionMap">
+        select *
+        from goods_version
+        where goods_id = #{goods_id}
+    </select>
+    <resultMap id="reviewMap" type="com.example.shop.pojo.Review">
+        <result column="review_id" property="reviewId"/>
+        <result column="user_id" property="userId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="review_time" property="reviewTime"/>
+        <result column="review_message" property="reviewMessage"/>
+    </resultMap>
+    <select id="getReview" resultMap="reviewMap">
+        select *
+        from review
+        where goods_id = #{goods_id}
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="MultiMap">
         select
         <include refid="Base_Column_List"/>
         from goods
         where goods_id = #{goodsId,jdbcType=VARCHAR}
     </select>
-    <select id="queryGoodsByPageNum" resultMap="BaseResultMap" resultType="int">
+    <select id="queryGoodsByPageNum" resultMap="BaseResultMap" parameterType="int">
         select
         <include refid="Base_Column_List"></include>
         from goods limit #{start},#{end}

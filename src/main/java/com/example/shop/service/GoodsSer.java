@@ -1,6 +1,7 @@
 package com.example.shop.service;
 
 import com.example.shop.pojo.Goods;
+import com.example.shop.pojo.GoodsDetailReview;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface GoodsSer {
 
     int insertSelective(Goods record);
 
-    Goods selectByPrimaryKey(String goodsId);
+    GoodsDetailReview selectByPrimaryKey(String goodsId);
 
     int updateByPrimaryKeySelective(Goods record);
 
