@@ -20,5 +20,10 @@ public interface UserDao {
 
     int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+    int updatePointByKey(String userId,int point);
+
+    int updatePswdByKey(String userId,String pswd);
+
+    int updateNameByKey(String userId,String userName);
+
 }

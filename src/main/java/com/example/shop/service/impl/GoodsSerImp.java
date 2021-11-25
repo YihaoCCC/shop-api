@@ -1,12 +1,13 @@
 package com.example.shop.service.impl;
 
 import com.example.shop.mapper.GoodsDao;
+import com.example.shop.mapper.GoodsPromotionDao;
 import com.example.shop.pojo.Goods;
 import com.example.shop.pojo.GoodsDetailReview;
 import com.example.shop.service.GoodsSer;
+import com.example.shop.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ import java.util.List;
 public class GoodsSerImp implements GoodsSer {
     @Autowired
     private GoodsDao goodsDao;
+    @Autowired
+    private GoodsPromotionDao goodsPromotionDao;
 
     @Override
     public int deleteByPrimaryKey(String goodsId) {
@@ -25,8 +28,8 @@ public class GoodsSerImp implements GoodsSer {
     }
 
     @Override
-    public List<Goods> queryGoodsByPageNum(int start,int end) {
-        return goodsDao.queryGoodsByPageNum(start,end);
+    public List<Goods> queryGoodsByPageNum(int start, int end) {
+        return goodsDao.queryGoodsByPageNum(start, end);
     }
 
     @Override
@@ -46,8 +49,11 @@ public class GoodsSerImp implements GoodsSer {
 
     @Override
     public GoodsDetailReview selectByPrimaryKey(String goodsId) {
+        goodsPromotionDao.deletePastTime(DateUtils.getNowDate());
         return goodsDao.selectByPrimaryKey(goodsId);
     }
+
+
     @Override
     public int updateByPrimaryKeySelective(Goods record) {
         return goodsDao.updateByPrimaryKeySelective(record);
@@ -55,6 +61,7 @@ public class GoodsSerImp implements GoodsSer {
 
     @Override
     public int updateByPrimaryKey(Goods record) {
+
         return goodsDao.updateByPrimaryKey(record);
     }
 }

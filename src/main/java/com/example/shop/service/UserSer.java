@@ -19,8 +19,10 @@ public interface UserSer {
     int insertSelective(User record);
 
     User selectByPrimaryKey(String userId);
-
+    int updatePointByKey(String userId,int point);
     int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+
+    int updatePswdByKey(String userId,String pswd);
+    int updateNameByKey(String userId,String userName);
 }

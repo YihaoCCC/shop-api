@@ -19,4 +19,5 @@ public interface GoodsPromotionSer {
     int updateByPrimaryKeySelective(GoodsPromotion record);
 
     int updateByPrimaryKey(GoodsPromotion record);
+    int deletePastTime(String date);
 }

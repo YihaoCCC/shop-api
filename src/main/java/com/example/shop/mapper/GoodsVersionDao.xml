@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.GoodsVersionDao">
+    <resultMap id="BaseResultMap" type="com.example.shop.pojo.GoodsVersion">
+        <id column="goods_id" jdbcType="VARCHAR" property="goodsId"/>
+        <id column="goods_version_id" jdbcType="VARCHAR" property="goodsVersionId"/>
+        <result column="goods_version_detail" jdbcType="VARCHAR" property="goodsVersionDetail"/>
+        <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice"/>
+        <result column="version_photo_url" property="versionPhotoUrl"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        goods_id, goods_version_id, goods_version_detail, goods_price
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods_version
+        where goods_id = #{goodsId,jdbcType=VARCHAR}
+        and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </select>
+    <select id="queryByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from goods_version
+        where goods_id = #{goodsId}
+    </select>
+    <select id="selectByVersionId" resultMap="BaseResultMap">
+        select *
+        from goods_version
+        where goods_version_id = #{versionId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="string">
+        delete
+        from goods_version
+        where goods_id = #{goodsId,jdbcType=VARCHAR}
+          and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="goods_version_id" keyProperty="goodsVersionId"
+            parameterType="com.example.shop.pojo.GoodsVersion" useGeneratedKeys="true">
+        insert into goods_version (goods_id, goods_version_detail, goods_price)
+        values (#{goodsId,jdbcType=VARCHAR}, #{goodsVersionDetail,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE})
+    </insert>
+    <insert id="insertSelective" keyColumn="goods_version_id" keyProperty="goodsVersionId"
+            parameterType="com.example.shop.pojo.GoodsVersion" useGeneratedKeys="true">
+        insert into goods_version
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsVersionDetail != null">
+                goods_version_detail,
+            </if>
+            <if test="goodsPrice != null">
+                goods_price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsVersionDetail != null">
+                #{goodsVersionDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null">
+                #{goodsPrice,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.GoodsVersion">
+        update goods_version
+        <set>
+            <if test="goodsVersionDetail != null">
+                goods_version_detail = #{goodsVersionDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where goods_id = #{goodsId,jdbcType=VARCHAR}
+        and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.GoodsVersion">
+        update goods_version
+        set goods_version_detail = #{goodsVersionDetail,jdbcType=VARCHAR},
+            goods_price          = #{goodsPrice,jdbcType=DOUBLE}
+        where goods_id = #{goodsId,jdbcType=VARCHAR}
+          and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </update>
+</mapper>

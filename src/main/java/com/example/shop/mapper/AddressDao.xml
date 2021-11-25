@@ -1,87 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shop.mapper.AddressDao">
-  <resultMap id="BaseResultMap" type="com.example.shop.pojo.Address">
-    <id column="address_id" jdbcType="VARCHAR" property="addressId" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    address_id, user_id, `name`, phone, address
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from address
-    where address_id = #{addressId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from address
-    where address_id = #{addressId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" keyColumn="address_id" keyProperty="addressId" parameterType="com.example.shop.pojo.Address" useGeneratedKeys="true">
-    insert into address (user_id, `name`, phone, 
-      address)
-    values (#{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, 
-      #{address,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="address_id" keyProperty="addressId" parameterType="com.example.shop.pojo.Address" useGeneratedKeys="true">
-    insert into address
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="name != null">
-        `name`,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.Address">
-    update address
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where address_id = #{addressId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.Address">
-    update address
-    set user_id = #{userId,jdbcType=VARCHAR},
-      `name` = #{name,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
-      address = #{address,jdbcType=VARCHAR}
-    where address_id = #{addressId,jdbcType=VARCHAR}
-  </update>
+    <resultMap id="BaseResultMap" type="com.example.shop.pojo.Address">
+        <id column="address_id" jdbcType="VARCHAR" property="addressId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="area" property="area"/>
+        <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+        <result column="is_default" property="isDefault"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        address_id, user_id, `name`, phone, province , city , area , address_detail,is_default
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from address
+        where address_id = #{addressId,jdbcType=VARCHAR}
+    </select>
+    <select id="queryByUserId" resultMap="BaseResultMap">
+        select *
+        from address
+        where user_id = #{userId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from address
+        where address_id = #{addressId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.example.shop.pojo.Address">
+        <selectKey keyProperty="addressId" resultType="java.lang.String" order="BEFORE">
+            select replace(uuid(),'-','')as addressId from dual
+        </selectKey>
+        insert into address (address_id,user_id, `name`, phone,province , city , area,
+                             address_detail,is_default)
+        values (#{addressId,jdbcType=VARCHAR},#{userId}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{area,jdbcType=VARCHAR},
+        #{addressDetail,jdbcType=VARCHAR},#{isDefault})
+    </insert>
+    <insert id="insertSelective" keyColumn="address_id" keyProperty="addressId"
+            parameterType="com.example.shop.pojo.Address" useGeneratedKeys="true">
+        insert into address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.Address">
+        update address
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where address_id = #{addressId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.Address">
+        update address
+        set user_id        = #{userId,jdbcType=VARCHAR},
+            `name`         = #{name,jdbcType=VARCHAR},
+            phone          = #{phone,jdbcType=VARCHAR},
+            province       = #{province,jdbcType=INTEGER},
+            city           = #{city,jdbcType=INTEGER},
+            area           = #{area,jdbcType=INTEGER},
+            address_detail = #{addressDetail,jdbcType=VARCHAR},
+            is_default     = #{isDefault}
+        where address_id = #{addressId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateIsDefault">
+        update address set is_default = 0
+        where user_id = #{userId}
+    </update>
 </mapper>

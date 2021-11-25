@@ -1,9 +1,6 @@
 package com.example.shop.service;
 
-import com.example.shop.pojo.Cart;
-import com.example.shop.pojo.CartList;
-import com.example.shop.pojo.ShoppingCart;
-import com.example.shop.pojo.ShoppingCartKey;
+import com.example.shop.pojo.*;
 
 import java.util.List;
 
@@ -13,8 +10,8 @@ import java.util.List;
  * @date 2021/11/19
  */
 public interface ShoppingCartSer {
-    int deleteByPrimaryKey(ShoppingCartKey key);
-
+    Cart deleteByPrimaryKey(ShoppingCartKey key);
+    int deleteByUserId(String userId);
     List<CartList> queryByUserId(String userId);
 
     int insert(ShoppingCart record);
@@ -25,5 +22,9 @@ public interface ShoppingCartSer {
 
     int updateByPrimaryKeySelective(ShoppingCart record);
 
-    int updateByPrimaryKey(ShoppingCart record);
+    Cart updateByPrimaryKey(ShoppingCart record);
+
+    Cart queryAllChoseByUserId(String userId);
+
+    Cart computeTotal(List<CartList> list);
 }

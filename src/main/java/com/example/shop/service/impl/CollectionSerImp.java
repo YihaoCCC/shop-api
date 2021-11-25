@@ -7,6 +7,9 @@ import com.example.shop.service.CollectionSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 苏聪杰
  * @Description
@@ -16,6 +19,10 @@ import org.springframework.stereotype.Service;
 public class CollectionSerImp implements CollectionSer {
     @Autowired(required = false)
     private CollectionDao collectionDao;
+
+    @Autowired
+    private GoodsDao goodsDao;
+
     @Override
     public int deleteByPrimaryKey(CollectionKey key) {
         return collectionDao.deleteByPrimaryKey(key);
@@ -29,5 +36,20 @@ public class CollectionSerImp implements CollectionSer {
     @Override
     public int insertSelective(CollectionKey record) {
         return collectionDao.insertSelective(record);
+    }
+
+    @Override
+    public Collect queryByUserId(String userId) {
+        List<CollectionKey> list = collectionDao.queryByUserId(userId);
+        Collect collect = new Collect();
+        collect.setUserId(userId);
+        List<Goods> goodsList = new ArrayList<>();
+        if(list.size() > 0){
+            for (CollectionKey c: list) {
+                goodsList.add(goodsDao.getGoodsByGoodsId(c.getGoodsId()));
+            }
+        }
+        collect.setGoodsList(goodsList);
+        return collect;
     }
 }

@@ -44,4 +44,9 @@ public class GoodsPromotionImp implements GoodsPromotionSer {
     public int updateByPrimaryKey(GoodsPromotion record) {
         return goodsPromotionDao.updateByPrimaryKey(record);
     }
+
+    @Override
+    public int deletePastTime(String date) {
+        return goodsPromotionDao.deletePastTime(date);
+    }
 }

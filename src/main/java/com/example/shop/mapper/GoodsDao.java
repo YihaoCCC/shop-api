@@ -10,7 +10,7 @@ import java.util.List;
 public interface GoodsDao {
     int deleteByPrimaryKey(String goodsId);
 
-    List<Goods> queryGoodsByPageNum(int start ,int end);
+    List<Goods> queryGoodsByPageNum(int start ,int size);
 
     List<Goods> queryByGoodsName(String goodsName);
 
@@ -23,4 +23,6 @@ public interface GoodsDao {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    Goods getGoodsByGoodsId(String goodsId);
 }

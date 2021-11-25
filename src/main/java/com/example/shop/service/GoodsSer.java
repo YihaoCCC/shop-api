@@ -16,7 +16,6 @@ public interface GoodsSer {
     List<Goods> queryGoodsByPageNum(int start,int end);
 
     List<Goods> queryByGoodsName(String goodsName);
-
     int insert(Goods record);
 
     int insertSelective(Goods record);

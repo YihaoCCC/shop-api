@@ -4,12 +4,11 @@ import com.example.shop.pojo.Goods;
 import com.example.shop.pojo.GoodsDetailReview;
 import com.example.shop.service.GoodsSer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class GoodsController {
      * @param pageNum
      */
     @GetMapping("/goods/pageNum/{pageNum}")
-    private List<Goods> queryGoodsByPageNum(@PathVariable(value = "pageNum") int pageNum) {
+    public List<Goods> queryGoodsByPageNum(@PathVariable(value = "pageNum") int pageNum) {
         int start = (pageNum - 1) * 10;
         int pageSize = 10;
         List<Goods> oriGoods = goodsSer.queryGoodsByPageNum(start, pageSize);
@@ -54,8 +53,16 @@ public class GoodsController {
      * @param goodsId
      */
     @GetMapping("/goods/goodsDetail/{goodsId}")
-    private GoodsDetailReview queryGoodsDetailByGoodsId(@PathVariable(value = "goodsId") String goodsId) {
+    public GoodsDetailReview queryGoodsDetailByGoodsId(@PathVariable(value = "goodsId") String goodsId) {
         return goodsSer.selectByPrimaryKey(goodsId);
     }
 
+    /**
+     * 添加商品
+     * @param goods
+     * @return
+     */
+    public int insertGoods(@RequestBody Goods goods){
+        return  goodsSer.insert(goods);
+    }
 }

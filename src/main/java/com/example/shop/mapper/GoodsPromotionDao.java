@@ -17,4 +17,5 @@ public interface GoodsPromotionDao {
     int updateByPrimaryKeySelective(GoodsPromotion record);
 
     int updateByPrimaryKey(GoodsPromotion record);
+    int deletePastTime(String date);
 }

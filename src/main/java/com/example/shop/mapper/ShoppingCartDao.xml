@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.mapper.ShoppingCartDao">
+    <resultMap id="BaseResultMap" type="com.example.shop.pojo.ShoppingCart">
+        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <id column="goods_id" jdbcType="VARCHAR" property="goodsId"/>
+        <id column="goods_version_id" jdbcType="VARCHAR" property="goodsVersionId"/>
+        <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice"/>
+        <result column="goods_number" jdbcType="INTEGER" property="goodsNumber"/>
+    </resultMap>
+    <resultMap id="CartListMap" type="com.example.shop.pojo.CartList">
+        <result column="goods_name" property="goodsName"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_version_id" property="goodsVersionId"/>
+        <result column="goods_version_detail" property="goodsVersionDetail"/>
+        <result column="goods_price" property="price"/>
+        <result column="version_photo_url" property="versionPhotoUrl"/>
+        <result column="goods_number" property="num"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id, goods_id, goods_version_id, goods_price, goods_number
+    </sql>
+    <sql id="CartList">
+        goods_name,goods_version_detail,goods_version_id,goods_price,version_photo_url,goods_number,goods_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="com.example.shop.pojo.ShoppingCartKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shopping_cart
+        where user_id = #{userId,jdbcType=VARCHAR}
+        and goods_id = #{goodsId,jdbcType=VARCHAR}
+        and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </select>
+    <select id="queryByUserId" parameterType="string" resultMap="CartListMap">
+        select g.goods_name,
+               gv.goods_version_detail,
+               gv.goods_version_id,
+               gv.goods_price,
+               gv.version_photo_url,
+               gv.version_invn,
+               sc.goods_number,
+               sc.goods_id,
+               sc.is_chose,
+               gp.promotion_detail
+        from goods as g
+                 left join goods_promotion gp on g.goods_id = gp.goods_id,
+             goods_version as gv,
+             shopping_cart as sc
+        where g.goods_id = gv.goods_id
+          and g.goods_id = sc.goods_id
+          and sc.goods_version_id = gv.goods_version_id
+          and sc.user_id = #{userId}
+    </select>
+    <resultMap id="choseMap" type="com.example.shop.pojo.IsChose">
+        <result column="is_chose" property="isChose"/>
+    </resultMap>
+    <select id="queryAllChoseByUserId" resultMap="choseMap">
+        select is_chose
+        from shopping_cart
+        where user_id = #{userId}
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.example.shop.pojo.ShoppingCartKey">
+        delete
+        from shopping_cart
+        where user_id = #{userId,jdbcType=VARCHAR}
+          and goods_id = #{goodsId,jdbcType=VARCHAR}
+          and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByUserId" parameterType="string">
+        delete
+        from shopping_cart
+        where user_id = #{userId}
+          and is_chose = 1;
+    </delete>
+    <insert id="insert" parameterType="com.example.shop.pojo.ShoppingCart">
+        insert into shopping_cart (user_id, goods_id, goods_version_id, goods_price,
+                                   goods_number)
+        values (#{userId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{goodsVersionId,jdbcType=VARCHAR},
+                #{goodsPrice,jdbcType=DOUBLE},
+                #{goodsNumber,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="user_id" keyProperty="userId"
+            parameterType="com.example.shop.pojo.ShoppingCart" useGeneratedKeys="true">
+        insert into shopping_cart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsVersionId != null">
+                goods_version_id,
+            </if>
+            <if test="goodsPrice != null">
+                goods_price,
+            </if>
+            <if test="goodsNumber != null">
+                goods_number,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsVersionId != null">
+                #{goodsVersionId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null">
+                #{goodsPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="goodsNumber != null">
+                #{goodsNumber,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.shop.pojo.ShoppingCart">
+        update shopping_cart
+        <set>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="goodsNumber != null">
+                goods_number = #{goodsNumber,jdbcType=INTEGER},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+        and goods_id = #{goodsId,jdbcType=VARCHAR}
+        and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.shop.pojo.ShoppingCart">
+        update shopping_cart
+        set goods_number = #{goodsNumber,jdbcType=INTEGER},
+            is_chose     = #{isChose}
+        where user_id = #{userId,jdbcType=VARCHAR}
+          and goods_id = #{goodsId,jdbcType=VARCHAR}
+          and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateChoseByUserId">
+        update shopping_cart
+        set is_chose=#{isChose}
+        where user_id = #{userId}
+    </update>
+</mapper>

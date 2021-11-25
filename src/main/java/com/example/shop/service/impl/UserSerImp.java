@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 public class UserSerImp implements UserSer {
     @Autowired(required = false)
     private UserDao userDao;
+
+
+
     @Override
     public int deleteByPrimaryKey(String userId) {
         return userDao.deleteByPrimaryKey(userId);
@@ -27,7 +30,7 @@ public class UserSerImp implements UserSer {
 
     @Override
     public User login(String phone, String pswd) {
-        return userDao.login(phone,pswd);
+        return userDao.login(phone, pswd);
     }
 
     @Override
@@ -46,12 +49,23 @@ public class UserSerImp implements UserSer {
     }
 
     @Override
+    public int updatePointByKey(String userId, int point) {
+        return userDao.updatePointByKey(userId,point);
+    }
+
+    @Override
     public int updateByPrimaryKeySelective(User record) {
         return userDao.updateByPrimaryKeySelective(record);
     }
 
+
     @Override
-    public int updateByPrimaryKey(User record) {
-        return userDao.updateByPrimaryKey(record);
+    public int updatePswdByKey(String userId, String pswd) {
+        return userDao.updatePswdByKey(userId, pswd);
+    }
+
+    @Override
+    public int updateNameByKey(String userId, String userName) {
+        return userDao.updateNameByKey(userId, userName);
     }
 }

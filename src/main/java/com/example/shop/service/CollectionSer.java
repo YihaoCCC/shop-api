@@ -1,7 +1,9 @@
 package com.example.shop.service;
 
-import com.example.shop.pojo.Collect;
 import com.example.shop.pojo.CollectionKey;
+import com.example.shop.pojo.Goods;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface CollectionSer {
     int insert(CollectionKey record);
 
     int insertSelective(CollectionKey record);
+
+    Collect queryByUserId(String userId);
 }

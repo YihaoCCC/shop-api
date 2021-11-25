@@ -4,6 +4,8 @@ import com.example.shop.pojo.Address;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 public interface AddressDao {
     int deleteByPrimaryKey(String addressId);
