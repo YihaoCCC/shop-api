@@ -2,6 +2,7 @@ package com.example.shop.service.impl;
 
 import com.example.shop.mapper.CollectionDao;
 import com.example.shop.pojo.CollectionKey;
+import com.example.shop.pojo.Goods;
 import com.example.shop.service.CollectionSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

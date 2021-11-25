@@ -12,6 +12,10 @@ public interface UserSer {
 
     int insert(User record);
 
+    User login(String phone, String pswd);
+
+    String check(String phone);
+
     int insertSelective(User record);
 
     User selectByPrimaryKey(String userId);

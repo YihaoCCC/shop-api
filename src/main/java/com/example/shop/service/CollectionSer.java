@@ -1,6 +1,9 @@
 package com.example.shop.service;
 
+import com.example.shop.pojo.Collect;
 import com.example.shop.pojo.CollectionKey;
+
+import java.util.List;
 
 /**
  * @author 苏聪杰

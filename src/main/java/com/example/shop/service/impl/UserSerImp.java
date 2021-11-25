@@ -26,6 +26,16 @@ public class UserSerImp implements UserSer {
     }
 
     @Override
+    public User login(String phone, String pswd) {
+        return userDao.login(phone,pswd);
+    }
+
+    @Override
+    public String check(String phone) {
+        return userDao.check(phone);
+    }
+
+    @Override
     public int insertSelective(User record) {
         return userDao.insertSelective(record);
     }

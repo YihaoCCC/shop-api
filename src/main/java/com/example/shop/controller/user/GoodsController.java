@@ -25,6 +25,7 @@ public class GoodsController {
 
     /**
      * 根据商品名字查找商品
+     * @param  goodsName
      */
     @GetMapping("/goods/queryByGoodsName/{goodsName}")
     public List<Goods> queryByGoodsName(@PathVariable(value = "goodsName") String goodsName) {
@@ -33,6 +34,7 @@ public class GoodsController {
 
     /**
      * 获取全部商品
+     * @param pageNum
      */
     @GetMapping("/goods/pageNum/{pageNum}")
     private List<Goods> queryGoodsByPageNum(@PathVariable(value = "pageNum") int pageNum) {
@@ -49,6 +51,7 @@ public class GoodsController {
 
     /**
      * 获取商品详情
+     * @param goodsId
      */
     @GetMapping("/goods/goodsDetail/{goodsId}")
     private GoodsDetailReview queryGoodsDetailByGoodsId(@PathVariable(value = "goodsId") String goodsId) {

@@ -22,7 +22,7 @@
         <result column="goods_kind_id" jdbcType="INTEGER" property="goodsKindId"/>
         <result column="goods_is_self" jdbcType="INTEGER" property="goodsIsSelf"/>
         <result column="goods_detail" jdbcType="VARCHAR" property="goodsDetail"/>
-        <result column="goods_status" jdbcType="VARCHAR" property="goodsStatus"/>
+        <result column="goods_status" jdbcType="INTEGER" property="goodsStatus"/>
         <result column="goods_invn" jdbcType="INTEGER" property="goodsInvn"/>
         <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice"/>
         <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
@@ -36,6 +36,7 @@
         <result column="goods_id" property="goodsId"/>
         <result column="goods_version_detail" property="goodsVersionDetail"/>
         <result column="goods_price" property="goodsPrice"/>
+        <result column="version_photo_url" property="versionPhotoUrl"/>
     </resultMap>
     <select id="getVersion" resultMap="versionMap">
         select *
@@ -81,9 +82,8 @@
         from goods
         where goods_id = #{goodsId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" keyColumn="goods_id" keyProperty="goodsId" parameterType="com.example.shop.pojo.Goods"
-            useGeneratedKeys="true">
-        <selectKey keyColumn="goods_id" resultType="java.lang.String" order="BEFORE">
+    <insert id="insert"  parameterType="com.example.shop.pojo.Goods">
+        <selectKey keyProperty="goods_id" resultType="java.lang.String" order="BEFORE">
             select replace(uuid(),'-','') as goods_id from dual
         </selectKey>
         insert into goods (goods_id,goods_name, goods_kind_id,goods_is_self,goods_detail,

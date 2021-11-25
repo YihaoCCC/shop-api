@@ -28,7 +28,7 @@ public class Goods implements Serializable {
 
     private String goodsDetail;
 
-    private String goodsStatus;
+    private Integer goodsStatus;
 
     private Integer goodsInvn;
 
