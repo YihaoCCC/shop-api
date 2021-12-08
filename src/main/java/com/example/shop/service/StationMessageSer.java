@@ -2,6 +2,8 @@ package com.example.shop.service;
 
 import com.example.shop.pojo.StationMessage;
 
+import java.util.List;
+
 /**
  * @author 苏聪杰
  * @Description
@@ -15,7 +17,7 @@ public interface StationMessageSer {
     int insertSelective(StationMessage record);
 
     StationMessage selectByPrimaryKey(String messageId);
-
+    List<StationMessage> queryAll();
     int updateByPrimaryKeySelective(StationMessage record);
 
     int updateByPrimaryKey(StationMessage record);

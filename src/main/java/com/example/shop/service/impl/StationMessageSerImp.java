@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 苏聪杰
  * @Description
@@ -34,6 +36,11 @@ public class StationMessageSerImp implements StationMessageSer {
     @Override
     public StationMessage selectByPrimaryKey(String messageId) {
         return stationMessageDao.selectByPrimaryKey(messageId);
+    }
+
+    @Override
+    public List<StationMessage> queryAll() {
+        return stationMessageDao.queryAll();
     }
 
     @Override

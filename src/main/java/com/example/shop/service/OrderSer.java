@@ -1,6 +1,9 @@
 package com.example.shop.service;
 
-import com.example.shop.pojo.*;
+import com.example.shop.pojo.AComplexOrder;
+import com.example.shop.pojo.ComplexOrder;
+import com.example.shop.pojo.GetReqBody;
+import com.example.shop.pojo.Order;
 
 import java.util.List;
 
@@ -25,7 +28,11 @@ public interface OrderSer {
 
     ComplexOrder queryByOrderId(String orderId);
 
-    List<ComplexOrder> queryAllByUserId(String userId,int pageNum,String status);
+    int updateByOrderId(String orderId, String status);
+    int CountOrderNumber();
+    List<ComplexOrder> queryAllByUserId(String userId, int pageNum, String status);
+
+    AComplexOrder queryAll(int pageNum);
 
     int payTheOrder(String orderId);
 

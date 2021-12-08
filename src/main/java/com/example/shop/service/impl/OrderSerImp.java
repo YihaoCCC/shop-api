@@ -2,7 +2,6 @@ package com.example.shop.service.impl;
 
 import com.example.shop.mapper.*;
 import com.example.shop.pojo.*;
-import com.example.shop.service.GoodsPromotionSer;
 import com.example.shop.service.OrderSer;
 import com.example.shop.service.ShoppingCartSer;
 import com.example.shop.service.UserSer;
@@ -11,7 +10,6 @@ import com.example.shop.utils.GetMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +56,6 @@ public class OrderSerImp implements OrderSer {
 
     @Override
     public ComplexOrder setOrder(GetReqBody body) {
-        System.out.println(body);
         Cart cart = shoppingCartSer.computeTotal(shoppingCartSer.queryByUserId(body.getUserId()));
         User user = userSer.selectByPrimaryKey(body.getUserId());
         Order order = new Order();
@@ -143,6 +140,16 @@ public class OrderSerImp implements OrderSer {
     }
 
     @Override
+    public int updateByOrderId(String orderId, String status) {
+        return orderDao.updateByOrderId(orderId,status);
+    }
+
+    @Override
+    public int CountOrderNumber() {
+        return orderDao.CountOrderNumber();
+    }
+
+    @Override
     public List<ComplexOrder> queryAllByUserId(String userId, int pageNum, String status) {
         if ("全部".equals(status)) {
             status = null;
@@ -156,6 +163,20 @@ public class OrderSerImp implements OrderSer {
             extractCode(complexOrder);
         }
         return complexOrders;
+    }
+
+    @Override
+    public AComplexOrder queryAll(int pageNum) {
+        int pageSize = 8;
+        int start = (pageNum - 1) * pageSize;
+        List<ComplexOrder> complexOrders = orderDao.queryAll(start, pageSize);
+        for (ComplexOrder complexOrder : complexOrders) {
+            extractCode(complexOrder);
+        }
+        AComplexOrder aComplexOrder = new AComplexOrder();
+        aComplexOrder.setTotal(orderDao.CountOrderNumber());
+        aComplexOrder.setComplexOrders(complexOrders);
+        return aComplexOrder;
     }
 
     @Override

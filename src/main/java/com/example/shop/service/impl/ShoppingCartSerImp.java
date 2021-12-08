@@ -1,6 +1,5 @@
 package com.example.shop.service.impl;
 
-import com.example.shop.mapper.GoodsDao;
 import com.example.shop.mapper.GoodsPromotionDao;
 import com.example.shop.mapper.ShoppingCartDao;
 import com.example.shop.pojo.*;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author 苏聪杰
@@ -73,10 +71,12 @@ public class ShoppingCartSerImp implements ShoppingCartSer {
 
     @Override
     public Cart queryAllChoseByUserId(String userId) {
+        System.out.println(userId);
         goodsPromotionDao.deletePastTime(DateUtils.getNowDate());
         List<IsChose> isChoses = shoppingCartDao.queryAllChoseByUserId(userId);
         HashSet<Integer> hashSet = new HashSet<Integer>();
         for (int i = 0; i < isChoses.size(); i++) {
+            System.out.println(hashSet.add(isChoses.get(i).getIsChose()));
             hashSet.add(isChoses.get(i).getIsChose());
         }
         if (hashSet.size() == 2) {
