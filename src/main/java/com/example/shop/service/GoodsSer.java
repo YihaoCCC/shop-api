@@ -11,14 +11,19 @@ import java.util.List;
  * @date 2021/11/19
  */
 public interface GoodsSer {
+    int insertMulti(GoodsDetailReview goodsDetailReview);
+
     int deleteByPrimaryKey(String goodsId);
 
-    List<Goods> queryGoodsByPageNum(int start,int end);
+    List<Goods> queryGoodsByPageNum(int start, int end);
 
     List<Goods> queryByGoodsName(String goodsName);
+
     int insert(Goods record);
 
     int insertSelective(Goods record);
+
+    List<GoodsDetailReview> queryAll(int pageNum);
 
     GoodsDetailReview selectByPrimaryKey(String goodsId);
 

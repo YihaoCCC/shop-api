@@ -71,7 +71,6 @@ public class ShoppingCartSerImp implements ShoppingCartSer {
 
     @Override
     public Cart queryAllChoseByUserId(String userId) {
-        System.out.println(userId);
         goodsPromotionDao.deletePastTime(DateUtils.getNowDate());
         List<IsChose> isChoses = shoppingCartDao.queryAllChoseByUserId(userId);
         HashSet<Integer> hashSet = new HashSet<Integer>();

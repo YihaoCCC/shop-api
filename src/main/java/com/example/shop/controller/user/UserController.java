@@ -56,11 +56,12 @@ public class UserController {
 
     @GetMapping("/user/modifyPassword/{userId}&{newPswd}")
     private int modifyPswd(@PathVariable String userId, @PathVariable String newPswd) {
-        return userSer.updatePswdByKey(userId,newPswd);
+        return userSer.updatePswdByKey(userId, newPswd);
     }
+
     @GetMapping("/user/modifyName/{userId}&{name}")
-    private int modifyName(@PathVariable String userId,@PathVariable String name){
-        return  userSer.updateNameByKey(userId,name);
+    private int modifyName(@PathVariable String userId, @PathVariable String name) {
+        return userSer.updateNameByKey(userId, name);
     }
 
 }

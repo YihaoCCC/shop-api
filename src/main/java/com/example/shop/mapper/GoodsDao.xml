@@ -61,11 +61,12 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="MultiMap">
         select g.*,
                gp.promotion_detail
-        from goods as g left join
+        from goods as g
+                 left join
              goods_promotion as gp on g.goods_id = gp.goods_id
         where g.goods_id = #{goodsId,jdbcType=VARCHAR}
     </select>
-    <select id="queryGoodsByPageNum" resultMap="BaseResultMap" parameterType="int">
+    <select id="queryGoodsByPageNum" resultMap="MultiMap" parameterType="int">
         select
         <include refid="Base_Column_List"></include>
         from goods limit #{start},#{size}
@@ -85,16 +86,22 @@
         from goods
         where goods_id = #{goodsId,jdbcType=VARCHAR}
     </select>
+    <select id="queryAll" resultMap="MultiMap" parameterType="integer">
+        select g.*,
+               gp.promotion_detail
+        from goods as g
+                 left join
+             goods_promotion as gp on g.goods_id = gp.goods_id
+        limit #{start},#{pageSize}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from goods
         where goods_id = #{goodsId,jdbcType=VARCHAR}
     </delete>
+
     <insert id="insert" parameterType="com.example.shop.pojo.Goods">
-        <selectKey keyProperty="goods_id" resultType="java.lang.String" order="BEFORE">
-            select replace(uuid(),'-','') as goods_id from dual
-        </selectKey>
         insert into goods (goods_id,goods_name, goods_kind_id,goods_is_self,goods_detail,
         goods_status, goods_invn, goods_price,
         photo_url)

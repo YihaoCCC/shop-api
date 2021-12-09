@@ -10,13 +10,15 @@ import java.util.List;
 public interface GoodsDao {
     int deleteByPrimaryKey(String goodsId);
 
-    List<Goods> queryGoodsByPageNum(int start ,int size);
+    List<Goods> queryGoodsByPageNum(int start, int size);
 
     List<Goods> queryByGoodsName(String goodsName);
 
     int insert(Goods record);
 
     int insertSelective(Goods record);
+
+    List<GoodsDetailReview> queryAll(int start,int pageSize);
 
     GoodsDetailReview selectByPrimaryKey(String goodsId);
 

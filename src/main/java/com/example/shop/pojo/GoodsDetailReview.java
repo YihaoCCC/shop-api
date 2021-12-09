@@ -23,7 +23,7 @@ public class GoodsDetailReview {
 
     private String goodsDetail;
 
-    private String goodsStatus;
+    private int goodsStatus;
 
     private Integer goodsInvn;
 

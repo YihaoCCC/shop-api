@@ -35,10 +35,13 @@
         where goods_id = #{goodsId,jdbcType=VARCHAR}
           and goods_version_id = #{goodsVersionId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" keyColumn="goods_version_id" keyProperty="goodsVersionId"
-            parameterType="com.example.shop.pojo.GoodsVersion" useGeneratedKeys="true">
-        insert into goods_version (goods_id, goods_version_detail, goods_price)
-        values (#{goodsId,jdbcType=VARCHAR}, #{goodsVersionDetail,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE})
+    <insert id="insert" parameterType="com.example.shop.pojo.GoodsVersion" >
+        <selectKey keyProperty="goodsVersionId" resultType="java.lang.String" order="BEFORE">
+            select replace(uuid(),'-','')as goodsVersionId from dual
+        </selectKey>
+        insert into goods_version (goods_version_id,goods_id, goods_version_detail, goods_price,version_photo_url,version_invn)
+        values (#{goodsVersionId},#{goodsId,jdbcType=VARCHAR}, #{goodsVersionDetail,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE},
+                #{versionPhotoUrl},#{versionInvn})
     </insert>
     <insert id="insertSelective" keyColumn="goods_version_id" keyProperty="goodsVersionId"
             parameterType="com.example.shop.pojo.GoodsVersion" useGeneratedKeys="true">

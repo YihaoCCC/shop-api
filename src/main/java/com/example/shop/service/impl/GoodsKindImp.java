@@ -6,6 +6,8 @@ import com.example.shop.service.GoodsKindSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 苏聪杰
  * @Description
@@ -22,8 +24,18 @@ public class GoodsKindImp implements GoodsKindSer {
     }
 
     @Override
+    public int getByKindName(String kindName) {
+        return goodsKindDao.getByKindName(kindName);
+    }
+
+    @Override
     public int insert(GoodsKind record) {
         return goodsKindDao.insert(record);
+    }
+
+    @Override
+    public List<GoodsKind> queryAll() {
+        return goodsKindDao.queryAll();
     }
 
     @Override
