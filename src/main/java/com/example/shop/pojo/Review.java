@@ -19,9 +19,11 @@ public class Review implements Serializable {
 
     private String userId;
 
+    private String userName;
+
     private String goodsId;
 
-    private Date reviewTime;
+    private String reviewTime;
 
     private String reviewMessage;
 

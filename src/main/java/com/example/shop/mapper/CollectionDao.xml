@@ -5,14 +5,36 @@
         <id column="user_id" jdbcType="VARCHAR" property="userId"/>
         <id column="goods_id" jdbcType="VARCHAR" property="goodsId"/>
     </resultMap>
+    <resultMap id="goodsMap" type="com.example.shop.pojo.Goods">
+        <result column="goods_id" jdbcType="VARCHAR" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_kind_id" jdbcType="INTEGER" property="goodsKindId"/>
+        <result column="goods_is_self" jdbcType="INTEGER" property="goodsIsSelf"/>
+        <result column="goods_detail" jdbcType="VARCHAR" property="goodsDetail"/>
+        <result column="goods_status" jdbcType="VARCHAR" property="goodsStatus"/>
+        <result column="goods_invn" jdbcType="INTEGER" property="goodsInvn"/>
+        <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice"/>
+        <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="com.example.shop.pojo.CollectionKey">
         delete
         from collection
         where user_id = #{userId,jdbcType=VARCHAR}
           and goods_id = #{goodsId,jdbcType=VARCHAR}
     </delete>
-    <select id="queryByUserId" parameterType="string" resultMap="BaseResultMap">
-        select * from collection where user_id = #{userId,jdbcType=VARCHAR}
+    <select id="query" resultMap="BaseResultMap">
+        select *
+        from collection
+        where user_id = #{userId,jdbcType=VARCHAR}
+          and goods_id = #{goodsId,jdbcType=VARCHAR}
+    </select>
+    <select id="queryByUserId" resultMap="goodsMap">
+        select g.*, c.user_id
+        from goods as g,
+             collection as c
+        where g.goods_id = c.goods_id
+          and c.user_id = #{userId}
+        limit #{start},#{pageSize}
     </select>
     <insert id="insert" parameterType="com.example.shop.pojo.CollectionKey">
         insert into collection (user_id, goods_id)

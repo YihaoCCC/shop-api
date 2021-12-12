@@ -22,6 +22,9 @@ public class GoodsPromotionImp implements GoodsPromotionSer {
 
     @Override
     public int insert(GoodsPromotion record) {
+        record.setPromotionKind("满减");
+        String detail = "满"+record.getPromotionFull()+"减"+record.getPromotionSub();
+        record.setPromotionDetail(detail);
         return goodsPromotionDao.insert(record);
     }
 

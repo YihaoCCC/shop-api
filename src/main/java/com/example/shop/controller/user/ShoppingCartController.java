@@ -1,5 +1,6 @@
 package com.example.shop.controller.user;
 
+import com.example.shop.pojo.Cart;
 import com.example.shop.pojo.CartList;
 import com.example.shop.pojo.ShoppingCart;
 import com.example.shop.pojo.ShoppingCartKey;
@@ -58,8 +59,10 @@ public class ShoppingCartController {
      * @param userId
      */
     @GetMapping("/shoppingCart/queryByUserId/{userId}")
-    private List<CartList> queryByUserId(@PathVariable String userId) {
-        return shoppingCartSer.queryByUserId(userId);
+    private Cart queryByUserId(@PathVariable String userId){
+        Cart cart = shoppingCartSer.computeTotal(shoppingCartSer.queryByUserId(userId));
+        return cart;
+
     }
 
     @GetMapping("/shoppingCart/chooseAll/{userId}")

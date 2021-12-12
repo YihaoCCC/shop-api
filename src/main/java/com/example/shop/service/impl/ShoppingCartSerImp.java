@@ -88,4 +88,34 @@ public class ShoppingCartSerImp implements ShoppingCartSer {
         shoppingCartDao.queryByUserId(userId);
         return computeTotal(shoppingCartDao.queryByUserId(userId));
     }
+
+    @Override
+    public Cart computeTotal(List<CartList> list) {
+        goodsPromotionDao.deletePastTime(DateUtils.getNowDate());
+        Cart cart = new Cart();
+        cart.setGoodsList(list);
+        double total = 0;
+        double oriTotal = 0;
+        HashMap<String, List<CartList>> hashMap = GetMap.getMap(list);
+        for (Map.Entry<String, List<CartList>> entry : hashMap.entrySet()) {
+            List<CartList> cartLists = entry.getValue();
+            double sum = 0;
+            for (CartList cartList : cartLists) {
+                sum += cartList.getPrice() * cartList.getNum();
+            }
+            if (entry.getKey() != null) {
+                GoodsPromotion goodsPromotion = goodsPromotionDao.selectByPrimaryKey(cartLists.get(0).getGoodsId());
+                oriTotal += sum;
+                total += sum - ((int) sum / goodsPromotion.getPromotionFull()) * goodsPromotion.getPromotionSub();
+            } else {
+                oriTotal += sum;
+                total += sum;
+            }
+
+        }
+        cart.setOriTotal(oriTotal);
+        cart.setTotal(total);
+        return cart;
+    }
+
 }

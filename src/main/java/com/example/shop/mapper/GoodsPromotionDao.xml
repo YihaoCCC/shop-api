@@ -24,12 +24,11 @@
         from goods_promotion
         where goods_id = #{goodsId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" keyColumn="goods_id" keyProperty="goodsId" parameterType="com.example.shop.pojo.GoodsPromotion"
-            useGeneratedKeys="true">
-        insert into goods_promotion (promotion_kind, promotion_detail, start_time,
-                                     end_time)
-        values (#{promotionKind,jdbcType=VARCHAR}, #{pormotionDetail,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE},
-                #{endTime,jdbcType=DATE})
+    <insert id="insert" parameterType="com.example.shop.pojo.GoodsPromotion">
+        insert into goods_promotion (goods_id,promotion_kind, promotion_detail, start_time,
+                                     end_time,promotion_full,promotion_sub)
+        values (#{goodsId,jdbcType=VARCHAR},#{promotionKind,jdbcType=VARCHAR}, #{promotionDetail,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE},
+                #{endTime,jdbcType=DATE},#{promotionFull},#{promotionSub})
     </insert>
     <insert id="insertSelective" keyColumn="goods_id" keyProperty="goodsId"
             parameterType="com.example.shop.pojo.GoodsPromotion" useGeneratedKeys="true">

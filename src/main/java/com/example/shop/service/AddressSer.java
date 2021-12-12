@@ -23,4 +23,6 @@ public interface AddressSer {
     int updateByPrimaryKeySelective(Address record);
 
     int updateByPrimaryKey(Address record);
+
+    List<Address> queryByUserId(String userId);
 }

@@ -5,7 +5,6 @@ import com.example.shop.pojo.Goods;
 
 import java.util.List;
 
-import java.util.List;
 
 /**
  * @author 苏聪杰
@@ -19,5 +18,7 @@ public interface CollectionSer {
 
     int insertSelective(CollectionKey record);
 
-    Collect queryByUserId(String userId);
+    List<Goods> queryByUserId(String userId, int pageNum);
+
+    CollectionKey query(CollectionKey record);
 }

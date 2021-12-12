@@ -16,12 +16,11 @@
         <result column="goods_price" property="price"/>
         <result column="version_photo_url" property="versionPhotoUrl"/>
         <result column="goods_number" property="num"/>
+        <result column="is_chose" property="isChose"/>
+        <result column="promotion_detail" property="promotionDetail"/>
     </resultMap>
     <sql id="Base_Column_List">
         user_id, goods_id, goods_version_id, goods_price, goods_number
-    </sql>
-    <sql id="CartList">
-        goods_name,goods_version_detail,goods_version_id,goods_price,version_photo_url,goods_number,goods_id
     </sql>
     <select id="selectByPrimaryKey" parameterType="com.example.shop.pojo.ShoppingCartKey" resultMap="BaseResultMap">
         select

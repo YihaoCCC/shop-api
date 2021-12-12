@@ -1,5 +1,6 @@
 package com.example.shop.service;
 
+import com.example.shop.pojo.ComplexOrder;
 import com.example.shop.pojo.Review;
 
 /**
@@ -19,4 +20,6 @@ public interface ReviewSer {
     int updateByPrimaryKeySelective(Review record);
 
     int updateByPrimaryKey(Review record);
+
+    ComplexOrder queryByOrderId(String orderId);
 }

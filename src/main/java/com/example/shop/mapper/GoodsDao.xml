@@ -49,14 +49,17 @@
     <resultMap id="reviewMap" type="com.example.shop.pojo.Review">
         <result column="review_id" property="reviewId"/>
         <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
         <result column="goods_id" property="goodsId"/>
         <result column="review_time" property="reviewTime"/>
         <result column="review_message" property="reviewMessage"/>
     </resultMap>
     <select id="getReview" resultMap="reviewMap">
-        select *
-        from review
-        where goods_id = #{goods_id}
+        select r.*, u.user_name
+        from review as r,
+             user as u
+        where r.user_id = u.user_id
+          and goods_id = #{goods_id}
     </select>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="MultiMap">
         select g.*,

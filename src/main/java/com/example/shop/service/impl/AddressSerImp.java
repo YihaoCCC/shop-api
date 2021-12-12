@@ -6,6 +6,8 @@ import com.example.shop.service.AddressSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 苏聪杰
  * @Description
@@ -22,8 +24,11 @@ public class AddressSerImp implements AddressSer {
     }
 
     @Override
-    public int insert(Address record) {
-        return addressDao.insert(record);
+    public int insert(Address address) {
+        if(address.getIsDefault() == 1){
+            addressDao.updateIsDefault(address.getUserId());
+        }
+        return addressDao.insert(address);
     }
 
     @Override
@@ -42,7 +47,16 @@ public class AddressSerImp implements AddressSer {
     }
 
     @Override
-    public int updateByPrimaryKey(Address record) {
-        return addressDao.updateByPrimaryKey(record);
+    public int updateByPrimaryKey(Address address) {
+        if(address.getIsDefault() == 1){
+            addressDao.updateIsDefault(address.getUserId());
+        }
+        return addressDao.updateByPrimaryKey(address);
     }
+
+    @Override
+    public List<Address> queryByUserId(String userId) {
+        return addressDao.queryByUserId(userId);
+    }
+
 }

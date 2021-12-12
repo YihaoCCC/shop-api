@@ -16,5 +16,7 @@ public interface CollectionDao {
 
     int insertSelective(CollectionKey record);
 
-    List<CollectionKey> queryByUserId(String userId);
+    List<Goods> queryByUserId(String userId, int start, int pageSize);
+
+    CollectionKey query(CollectionKey record);
 }

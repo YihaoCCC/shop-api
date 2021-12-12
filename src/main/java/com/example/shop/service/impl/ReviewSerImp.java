@@ -1,7 +1,9 @@
 package com.example.shop.service.impl;
 
 import com.example.shop.mapper.ReviewDao;
+import com.example.shop.pojo.ComplexOrder;
 import com.example.shop.pojo.Review;
+import com.example.shop.service.OrderSer;
 import com.example.shop.service.ReviewSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 public class ReviewSerImp implements ReviewSer {
     @Autowired(required = false)
     private ReviewDao reviewDao;
+    @Autowired
+    private OrderSer orderSer;
     @Override
     public int deleteByPrimaryKey(String reviewId) {
         return reviewDao.deleteByPrimaryKey(reviewId);
@@ -43,5 +47,10 @@ public class ReviewSerImp implements ReviewSer {
     @Override
     public int updateByPrimaryKey(Review record) {
         return reviewDao.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public ComplexOrder queryByOrderId(String orderId) {
+        return orderSer.queryByOrderId(orderId);
     }
 }

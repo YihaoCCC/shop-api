@@ -9,14 +9,12 @@ import java.util.List;
 /**
  * @author 苏聪杰
  * @Description
- * @date 2021/11/25
+ * @date 2021/12/8
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
-    private Double oriTotal;
-    private Double total;
-    private List<CartList> goodsList;
-
+public class AComplexOrder {
+    private  int Total;
+    private  List<ComplexOrder> complexOrders;
 }

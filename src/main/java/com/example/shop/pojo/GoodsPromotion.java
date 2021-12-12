@@ -23,8 +23,16 @@ public class GoodsPromotion implements Serializable {
 
     private String promotionDetail;
 
+    private Integer promotionFull;
+
+    private Integer promotionSub;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date startTime;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date endTime;
 
     private static final long serialVersionUID = 1L;

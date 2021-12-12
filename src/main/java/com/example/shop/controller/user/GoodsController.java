@@ -57,12 +57,4 @@ public class GoodsController {
         return goodsSer.selectByPrimaryKey(goodsId);
     }
 
-    /**
-     * 添加商品
-     * @param goods
-     * @return
-     */
-    public int insertGoods(@RequestBody Goods goods){
-        return  goodsSer.insert(goods);
-    }
 }

@@ -73,7 +73,6 @@ public class OrderSerImp implements OrderSer {
         }
         order.setUserId(body.getUserId());
         order.setOrderStatus("待付款");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         order.setOrderTime(DateUtils.getNowDate());
         order.setOriAmount(cart.getOriTotal());
         order.setAddressId(body.getAddressId());

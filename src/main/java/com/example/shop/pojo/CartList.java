@@ -26,4 +26,20 @@ public class CartList {
     private int isChose;
     private int num;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CartList cartList = (CartList) o;
+        return versionInvn == cartList.versionInvn && isChose == cartList.isChose && num == cartList.num && Objects.equals(goodsId, cartList.goodsId) && Objects.equals(goodsName, cartList.goodsName) && Objects.equals(goodsVersionId, cartList.goodsVersionId) && Objects.equals(goodsVersionDetail, cartList.goodsVersionDetail) && Objects.equals(versionPhotoUrl, cartList.versionPhotoUrl) && Objects.equals(price, cartList.price) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(goodsId, goodsName, goodsVersionId, goodsVersionDetail, versionPhotoUrl, price, versionInvn, isChose, num);
+    }
 }
