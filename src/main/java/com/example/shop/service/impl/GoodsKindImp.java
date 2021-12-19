@@ -8,11 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 @Service
 public class GoodsKindImp implements GoodsKindSer {
     @Autowired(required = false)

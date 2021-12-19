@@ -5,11 +5,7 @@ import com.example.shop.pojo.GoodsDetailReview;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 public interface GoodsSer {
     int insertMulti(GoodsDetailReview goodsDetailReview);
 
@@ -18,7 +14,7 @@ public interface GoodsSer {
     List<Goods> queryGoodsByPageNum(int start, int end);
 
     List<Goods> queryByGoodsName(String goodsName);
-
+    List<GoodsDetailReview> findByGoodsName(String goodsName);
     int insert(Goods record);
 
     int insertSelective(Goods record);

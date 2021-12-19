@@ -15,11 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 @Service
 public class OrderDetailSerImp implements OrderDetailSer {
     @Autowired(required = false)

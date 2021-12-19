@@ -4,11 +4,6 @@ import lombok.Data;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/22
- */
 @Data
 public class GoodsDetailReview {
     private static final long serialVersionUID = 1L;

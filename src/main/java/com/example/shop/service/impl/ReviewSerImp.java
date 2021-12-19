@@ -8,24 +8,19 @@ import com.example.shop.service.ReviewSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 @Service
 public class ReviewSerImp implements ReviewSer {
     @Autowired(required = false)
     private ReviewDao reviewDao;
-    @Autowired
-    private OrderSer orderSer;
+
     @Override
     public int deleteByPrimaryKey(String reviewId) {
         return reviewDao.deleteByPrimaryKey(reviewId);
     }
 
     @Override
-    public int insert(Review record) {
+    public int insert(Review record)     {
         return reviewDao.insert(record);
     }
 
@@ -49,8 +44,4 @@ public class ReviewSerImp implements ReviewSer {
         return reviewDao.updateByPrimaryKey(record);
     }
 
-    @Override
-    public ComplexOrder queryByOrderId(String orderId) {
-        return orderSer.queryByOrderId(orderId);
-    }
 }

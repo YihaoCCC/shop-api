@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/23
- */
+
 @RestController
 public class OrderController {
     @Autowired
@@ -31,19 +27,17 @@ public class OrderController {
      */
     @GetMapping("/order/getOrder/fromLast/{orderId}")
     private ComplexOrder setOrder2(@PathVariable String orderId) {
-
         return orderSer.queryByOrderId(orderId);
     }
 
     /**
-     * 获取全部订单
-     *
+     * 获取订单
      * @param userId
      * @return
      */
     @GetMapping("/order/queryAll/{userId}/{pageNum}/{status}")
-    private List<ComplexOrder> queryAll(@PathVariable String userId, @PathVariable int pageNum, @PathVariable String status) {
-
+    private List<ComplexOrder> queryAll(@PathVariable String userId, @PathVariable int pageNum,
+                                        @PathVariable String status) {
         return orderSer.queryAllByUserId(userId, pageNum, status);
     }
 

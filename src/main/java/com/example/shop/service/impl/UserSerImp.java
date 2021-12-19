@@ -6,11 +6,9 @@ import com.example.shop.service.UserSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+import java.util.List;
+
+
 @Service
 public class UserSerImp implements UserSer {
     @Autowired(required = false)
@@ -67,5 +65,12 @@ public class UserSerImp implements UserSer {
     @Override
     public int updateNameByKey(String userId, String userName) {
         return userDao.updateNameByKey(userId, userName);
+    }
+
+    @Override
+    public List<User> queryAll(int pageNum) {
+        int pageSize = 8;
+        int start = (pageNum - 1) * pageSize;
+        return userDao.queryAll(start, pageSize);
     }
 }

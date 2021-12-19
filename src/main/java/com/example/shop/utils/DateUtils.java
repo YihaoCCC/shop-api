@@ -4,11 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/30
- */
+
 public  class DateUtils {
     public static String getNowDate(){
         //LocalDate date = LocalDate.now();

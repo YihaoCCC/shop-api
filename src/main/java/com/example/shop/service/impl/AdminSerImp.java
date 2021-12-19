@@ -6,11 +6,7 @@ import com.example.shop.service.AdminSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 @Service
 public class AdminSerImp implements AdminSer {
     @Autowired(required = false)

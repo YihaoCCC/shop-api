@@ -3,11 +3,7 @@ package com.example.shop.service;
 import com.example.shop.pojo.ComplexOrder;
 import com.example.shop.pojo.Review;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 public interface ReviewSer {
     int deleteByPrimaryKey(String reviewId);
 
@@ -19,7 +15,5 @@ public interface ReviewSer {
 
     int updateByPrimaryKeySelective(Review record);
 
-    int updateByPrimaryKey(Review record);
-
-    ComplexOrder queryByOrderId(String orderId);
+    int updateByPrimaryKey(Review recor);
 }

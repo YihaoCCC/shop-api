@@ -8,11 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/21
- */
+
 @Service
 public class GoodsVersionSerImp implements GoodsVersionSer {
     @Autowired

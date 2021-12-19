@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/22
- */
+
 @RestController
 public class GoodsVersionCon {
     @Autowired

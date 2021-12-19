@@ -25,9 +25,4 @@ public class ReviewController {
         review.setReviewTime(DateUtils.getNowDate());
         return reviewSer.insert(review);
     }
-
-    @GetMapping("/review/queryByOrderId/{orderId}")
-    public ComplexOrder queryByOrderId(@PathVariable String orderId){
-        return reviewSer.queryByOrderId(orderId);
-    }
 }

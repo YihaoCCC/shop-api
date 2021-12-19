@@ -4,11 +4,6 @@ import com.example.shop.pojo.StationMessage;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
 public interface StationMessageSer {
     int deleteByPrimaryKey(String messageId);
 

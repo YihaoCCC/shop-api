@@ -8,11 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 @Service
 public class DeliverySerImp implements DeliverySer {
     @Autowired(required = false)

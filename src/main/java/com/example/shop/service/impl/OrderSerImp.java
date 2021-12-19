@@ -15,11 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
 @Service
 public class OrderSerImp implements OrderSer {
     @Autowired(required = false)
@@ -69,7 +64,6 @@ public class OrderSerImp implements OrderSer {
         } else {
             order.setRealAmount(cart.getTotal());
             order.setUsePoint(0);
-
         }
         order.setUserId(body.getUserId());
         order.setOrderStatus("待付款");
@@ -104,8 +98,16 @@ public class OrderSerImp implements OrderSer {
                 double realPrice = cartList.getPrice() - ((cartList.getPrice() / sum) * promotion);
                 orderDetail.setRealPrice(realPrice);
                 orderDetailDao.insert(orderDetail);
+                //更新商品库存
+                Goods goods = goodsDao.getGoodsByGoodsId(orderDetail.getGoodsId());
+                goods.setGoodsInvn(goods.getGoodsInvn() - orderDetail.getNumber());
+                System.out.println(orderDetail.getNumber());
+                goodsDao.updateByPrimaryKey(goods);
+                GoodsVersion goodsVersion = goodsVersionDao.selectByVersionId(orderDetail.getGoodsVersionId());
+                System.out.println(goodsVersion);
+                goodsVersion.setVersionInvn(goodsVersion.getVersionInvn() - orderDetail.getNumber());
+                goodsVersionDao.updateByPrimaryKey(goodsVersion);
             }
-
         }
         //删除支付完成的购物车的商品
         shoppingCartSer.deleteByUserId(user.getUserId());
@@ -190,10 +192,24 @@ public class OrderSerImp implements OrderSer {
 
     @Override
     public int deleteNotPayOrder(String orderId) {
+        //返还积分
         Order order = orderDao.selectByPrimaryKey(orderId);
-        User user = userSer.selectByPrimaryKey(order.getUserId());
-        user.setPoints(user.getPoints() + (int) (order.getOriAmount() * 3));
-        userSer.updatePointByKey(user.getUserId(), user.getPoints());
+        if(order.getUsePoint() == 1) {
+            User user = userSer.selectByPrimaryKey(order.getUserId());
+            user.setPoints(user.getPoints() + (int) (order.getOriAmount() * 3));
+            userSer.updatePointByKey(user.getUserId(), user.getPoints());
+        }
+        //更新商品库存（加）
+        ComplexOrder complexOrder = orderDao.queryByOrderId(orderId);
+        List<OrderDetail> orderDetails = complexOrder.getOrderDetails();
+        for (OrderDetail orderDetail : orderDetails) {
+            Goods goods = goodsDao.getGoodsByGoodsId(orderDetail.getGoodsId());
+            goods.setGoodsInvn(goods.getGoodsInvn() + orderDetail.getNumber());
+            goodsDao.updateByPrimaryKey(goods);
+            GoodsVersion goodsVersion = goodsVersionDao.selectByVersionId(orderDetail.getGoodsVersionId());
+            goodsVersion.setVersionInvn(goodsVersion.getVersionInvn() + orderDetail.getNumber());
+            goodsVersionDao.updateByPrimaryKey(goodsVersion);
+        }
         return orderDao.deleteNotPayOrder(orderId);
     }
 }

@@ -97,6 +97,18 @@
              goods_promotion as gp on g.goods_id = gp.goods_id
         limit #{start},#{pageSize}
     </select>
+    <select id="findByGoodsName" resultMap="MultiMap" parameterType="string">
+        select g.*,
+               gp.promotion_detail
+        from goods as g
+                 left join
+             goods_promotion as gp on g.goods_id = gp.goods_id
+        <where>
+            <if test="goodsName!=null">
+                and goods_name like "%"#{goodsName}"%"
+            </if>
+        </where>
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete

@@ -72,6 +72,11 @@ public class GoodsSerImp implements GoodsSer {
     }
 
     @Override
+    public List<GoodsDetailReview> findByGoodsName(String goodsName) {
+        return goodsDao.findByGoodsName(goodsName);
+    }
+
+    @Override
     public int insert(Goods record) {
         return goodsDao.insert(record);
     }

@@ -2,11 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.pojo.Delivery;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 public interface DeliverySer {
     int deleteByPrimaryKey(Integer deliveryId);
 

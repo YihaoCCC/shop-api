@@ -2,11 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.pojo.Admin;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 public interface AdminSer {
     int deleteByPrimaryKey(String adminId);
 

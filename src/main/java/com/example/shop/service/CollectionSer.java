@@ -6,11 +6,7 @@ import com.example.shop.pojo.Goods;
 import java.util.List;
 
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/19
- */
+
 public interface CollectionSer {
     int deleteByPrimaryKey(CollectionKey key);
 

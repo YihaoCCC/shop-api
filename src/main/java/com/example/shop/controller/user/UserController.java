@@ -5,11 +5,7 @@ import com.example.shop.service.UserSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/22
- */
+
 @RestController
 public class UserController {
     @Autowired

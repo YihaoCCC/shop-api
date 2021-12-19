@@ -4,6 +4,8 @@ import com.example.shop.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserDao {
     int deleteByPrimaryKey(String userId);
@@ -25,5 +27,7 @@ public interface UserDao {
     int updatePswdByKey(String userId,String pswd);
 
     int updateNameByKey(String userId,String userName);
+
+    List<User> queryAll(int start ,int pageSize);
 
 }

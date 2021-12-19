@@ -3,11 +3,7 @@ package com.example.shop;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/12/2
- */
+
 public class test {
     public static void main(String[] args) {
         ArrayList<Integer> list = new ArrayList<>();

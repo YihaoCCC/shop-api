@@ -29,6 +29,9 @@
         from user
         where phone = #{phone}
     </select>
+    <select id="queryAll" resultMap="BaseResultMap">
+        select * from user limit #{start},#{pageSize}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from user

@@ -4,11 +4,7 @@ import com.example.shop.pojo.GoodsVersion;
 
 import java.util.List;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/11/21
- */
+
 public interface GoodsVersionSer {
     int deleteByPrimaryKey(String key);
 

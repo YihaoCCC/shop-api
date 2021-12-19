@@ -25,6 +25,6 @@ public interface GoodsDao {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
-
+    List<GoodsDetailReview> findByGoodsName(String goodsName);
     Goods getGoodsByGoodsId(String goodsId);
 }

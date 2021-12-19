@@ -2,11 +2,7 @@ package com.example.shop.utils;
 
 import java.util.Comparator;
 
-/**
- * @author 苏聪杰
- * @Description
- * @date 2021/12/6
- */
+
 public class MyComparator implements Comparator<Integer> {
 
 
